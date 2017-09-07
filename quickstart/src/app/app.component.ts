@@ -5,14 +5,12 @@ import {Hero} from './hero';
   template: `
   <h1>{{title}}</h1>
   <hero-form></hero-form>
-  <h2>My favorite hero is: {{myHero.name}}</h2>
+  <h2 *ngIf="myHero">My favorite hero is: {{myHero.name}}</h2>
    <p *ngIf="heroes.length > 3">There are many heroes!</p>
   <p>Heroes:</p>
-  <ul>
-    <li *ngFor="let hero of heroes; let i=index">
-  <h2>{{hero.name}} details!</h2>
-  <div><label>id: </label>{{hero.id}}</div>
-  <div><label>name: </label>{{hero.name}}</div>
+  <ul class="heroes">
+    <li *ngFor="let hero of heroes; let i=index" (click)="onSelect(hero)">
+  <div><span class="badge">{{hero.id}}</span> {{hero.name}}</div>
   <input [(ngModel)]="hero.name" placeholder="name">
   
       <!--<div [class.hidden]="i == 2">Show with 1111 - {{i}} class</div>-->

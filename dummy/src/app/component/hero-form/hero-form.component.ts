@@ -15,7 +15,7 @@ export class HeroFormComponent implements OnInit {
   ngOnInit() {
   	//this.selectedHero = this.heroes[0];
     this.powers = this.heroService.getPowerList();
-    this.heroes = this.heroService.getHeroes();
+    this.getHeroes();
   }
 
   @Input() hero: Hero;
@@ -24,6 +24,10 @@ export class HeroFormComponent implements OnInit {
   powers: String[];
   heroes: Hero[];
 
+
+  getHeroes(): void {
+    this.heroService.getHeroesSlowly().then(heroes => this.heroes = heroes);
+  }
 
   onSelect(hero: Hero): void {
   	this.selectedHero = hero;

@@ -1,40 +1,35 @@
 import { Component, OnInit, Input} from '@angular/core';
 import {Hero} from '../../vo/hero';
+import { HeroService } from '../../service/hero.service';
 
 @Component({
   selector: 'app-hero-form',
   templateUrl: './hero-form.component.html',
-  styleUrls: ['./hero-form.component.css']
+  styleUrls: ['./hero-form.component.css'],
+  providers: [HeroService]
 })
 export class HeroFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private heroService: HeroService) { }
 
   ngOnInit() {
   	//this.selectedHero = this.heroes[0];
+    this.powers = this.heroService.getPowerList();
+    this.heroes = this.heroService.getHeroes();
   }
 
   @Input() hero: Hero;
 
   selectedHero: Hero;
+  powers: String[];
+  heroes: Hero[];
+
 
   onSelect(hero: Hero): void {
   	this.selectedHero = hero;
   }
 
-  powers = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer','power'];
-
-  heroes = [
-    new Hero(1, 'Windstorm', 'power', 'EGO1'),
-    new Hero(13, 'Bombasto', 'power', 'EGO2'),
-    new Hero(15, 'Magneta', 'power', 'EGO3'),
-    new Hero(20, 'Tornado', 'power', 'EGO4')
-  ];
-
-
   submitted = false;
-
   onSubmit() { this.submitted = true; }
 
   // TODO: Remove this when we're done
